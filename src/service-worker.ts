@@ -81,6 +81,7 @@ self.addEventListener('message', (event) => {
 });
 
 const staticCacheName = 's-app-v1';
+const dynamicCacheName = 'd-app-v1';
 
 const assetUrls = [
   'index.html',
@@ -99,6 +100,7 @@ self.addEventListener('activate', async () => {
   await Promise.all(
     cacheNames
       .filter((name) => name !== staticCacheName)
+      .filter((name) => name !== dynamicCacheName)
       .map((name) => caches.delete(name)),
   );
 });
@@ -112,6 +114,19 @@ async function cacheFirst(request: Request) {
   const response = await caches.match(request) ?? await fetch(request);
 
   return response;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+async function networkFirst(request: Request) {
+  const cache = await caches.open(dynamicCacheName);
+  try {
+    const response = await fetch(request);
+    await cache.put(request, response.clone());
+    return response;
+  } catch (e) {
+    const cached = await cache.match(request);
+    return cached;
+  }
 }
 
 // Any other custom service worker logic can go here.
