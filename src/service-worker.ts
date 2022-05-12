@@ -86,7 +86,7 @@ const dynamicCacheName = 'd-app-v1';
 const assetUrls = [
   'index.html',
   'index.css',
-  '/static/js/main.44ff04a5.js',
+  '/static/js/main.6d5e19e2.js',
   '/static/js/787.a727b773.chunk.js',
 ];
 
