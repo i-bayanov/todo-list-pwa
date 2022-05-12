@@ -68,14 +68,18 @@ export default function App() {
     clearComplited,
   };
 
+  const todoCount = todos.filter((todo) => !todo.completed).length;
+  // @ts-ignore Property 'setAppBadge' does not exist on type 'Navigator'.ts(2339)
+  navigator.setAppBadge(todoCount);
+
   return (
     <StateContext.Provider value={contextValue}>
       <section className="todoapp">
         <Header />
         {!!todos.length && <Routes>
-          <Route path='/' element={<Main filter={0}/>}/>
-          <Route path='/active' element={<Main filter={1}/>}/>
-          <Route path='/completed' element={<Main filter={2}/>}/>
+          <Route path='/' element={<Main filter={0} />} />
+          <Route path='/active' element={<Main filter={1} />} />
+          <Route path='/completed' element={<Main filter={2} />} />
         </Routes>}
       </section>
     </StateContext.Provider>
