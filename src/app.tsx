@@ -70,7 +70,7 @@ export default function App() {
 
   const todoCount = todos.filter((todo) => !todo.completed).length;
   // @ts-ignore Property 'setAppBadge' does not exist on type 'Navigator'.ts(2339)
-  navigator.setAppBadge(todoCount);
+  if ('setAppBadge' in navigator) navigator.setAppBadge(todoCount);
 
   return (
     <StateContext.Provider value={contextValue}>
