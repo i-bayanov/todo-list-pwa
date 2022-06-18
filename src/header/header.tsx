@@ -35,13 +35,15 @@ export default function Header() {
   const handleKeyEvent = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
       const input = e.target as HTMLInputElement;
-      setNewTodo(input.value);
-      addTodo({
-        id: Date.now().toString(),
-        title: input.value,
-        completed: false,
-      });
-      input.value = '';
+      if (input.value) {
+        setNewTodo(input.value);
+        addTodo({
+          id: Date.now().toString(),
+          title: input.value,
+          completed: false,
+        });
+        input.value = '';
+      }
     }
   };
 
